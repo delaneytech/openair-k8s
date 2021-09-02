@@ -1,6 +1,6 @@
 # We're using the RHEL7 UBI base image from the Red Hat private registry, thus
 # the build host must be registered and have a valid subscription.
-ARG REGISTRY=redhat.blackground.io
+ARG REGISTRY=hub.blackground.io
 FROM $REGISTRY/ubi7/ubi
 
 ARG GIT_TAG=latest
