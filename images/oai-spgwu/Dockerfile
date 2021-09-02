@@ -12,7 +12,7 @@ RUN patch -p1 -d openair-cn-cups < patches/enable_sudo-less_build.patch
 RUN cd openair-cn-cups/build/scripts \
     && ./build_spgwu -c -v -b RelWithDebInfo -j
 
-FROM registry.redhat.io/ubi8/ubi
+FROM redhat.blackground.io/ubi8/ubi
 LABEL name="oai-spgwu" \
       version="$GIT_TAG" \
       maintainer="Frank A. Zdarsky <fzdarsky@redhat.com>" \

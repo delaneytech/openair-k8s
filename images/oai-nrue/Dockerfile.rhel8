@@ -16,7 +16,7 @@ RUN cd openairinterface5g/cmake_targets \
     && ./build_oai --nrUE -w USRP --verbose-compile
 
 
-FROM registry.redhat.io/ubi8/ubi
+FROM redhat.blackground.io/ubi8/ubi
 LABEL name="oai-nrue" \
       version="$GIT_TAG" \
       maintainer="Frank A. Zdarsky <fzdarsky@redhat.com>" \

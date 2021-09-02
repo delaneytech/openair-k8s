@@ -18,7 +18,7 @@ RUN cd openair-cn/scripts \
     && OPENAIRCN_DIR=$(dirname $(pwd)) ./build_hss_rel14 -v
 
 
-FROM registry.redhat.io/ubi8/ubi
+FROM redhat.blackground.io/ubi8/ubi
 LABEL name="oai-hss" \
       version="$GIT_TAG" \
       maintainer="Frank A. Zdarsky <fzdarsky@redhat.com>" \

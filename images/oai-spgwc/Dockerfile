@@ -13,7 +13,7 @@ RUN cd openair-cn-cups/build/scripts \
     && ./build_spgwc -c -v -b RelWithDebInfo -j
 
 
-FROM registry.redhat.io/ubi8/ubi
+FROM redhat.blackground.io/ubi8/ubi
 LABEL name="oai-spgwc" \
       version="$GIT_TAG" \
       maintainer="Frank A. Zdarsky <fzdarsky@redhat.com>" \

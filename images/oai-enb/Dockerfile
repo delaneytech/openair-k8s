@@ -17,7 +17,7 @@ RUN cd openairinterface5g/cmake_targets \
     && ./build_oai -c --eNB -w USRP --verbose-compile
 
 
-FROM registry.redhat.io/ubi7/ubi
+FROM redhat.blackground.io/ubi7/ubi
 LABEL name="oai-enb" \
       version="$GIT_TAG" \
       maintainer="Frank A. Zdarsky <fzdarsky@redhat.com>" \
