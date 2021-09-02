@@ -1,4 +1,4 @@
-ARG REGISTRY=localhost
+ARG REGISTRY=redhat.blackground.io
 FROM $REGISTRY/oai-build-base:latest.el7 AS builder
 
 ARG GIT_TAG=develop-nr
