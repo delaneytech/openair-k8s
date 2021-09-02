@@ -1,17 +1,16 @@
-# We're using the RHEL7 UBI base image from the Red Hat private registry, thus
+# We're using the RHEL8 UBI base image from the Red Hat private registry, thus
 # the build host must be registered and have a valid subscription.
-ARG REGISTRY=hub.blackground.io
-FROM $REGISTRY/ubi7/ubi
+ARG REGISTRY=registry.redhat.io
+FROM $REGISTRY/ubi8/ubi
 
 ARG GIT_TAG=latest
 LABEL name="oai-build-base" \
-      version="${GIT_TAG}.el7" \
+      version="${GIT_TAG}.el8" \
       io.k8s.description="Image containing all build dependencies for openairinterface5g and openair-cn."
 
 WORKDIR /root
-#RUN yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm \
-#    && yum install -y --enablerepo="rhel-7-server-optional-rpms" --enablerepo="rhel-server-rhscl-7-rpms" \
-#        git make cmake3 gcc gcc-c++ autoconf automake bc bison flex libtool patch devtoolset-7 \
+#RUN yum -y install --enablerepo="codeready-builder-for-rhel-8-x86_64-rpms" \
+#        git make cmake gcc gcc-c++ autoconf automake bc bison flex libtool patch \
 #        atlas-devel \
 #        blas \
 #        blas-devel \
@@ -54,26 +53,28 @@ WORKDIR /root
 #        openssl \
 #        openssl-devel \
 #        pkgconfig \
+#        protobuf \
+#        protobuf-c \
+#        protobuf-c-compiler \
+#        protobuf-c-devel \
 #        psmisc \
-#        python-pip \
 #        python2 \
 #        python2-docutils \
 #        python2-requests \
-#        unzip \
 #        vim-common \
-#        xforms-devel \
 #        xz-devel \
 #        zlib-devel \
+#    && yum install -y http://download-ib01.fedoraproject.org/pub/epel/7/x86_64/Packages/x/xforms-1.2.4-5.el7.x86_64.rpm \
+#    && yum install -y http://download-ib01.fedoraproject.org/pub/epel/7/x86_64/Packages/x/xforms-devel-1.2.4-5.el7.x86_64.rpm \
 #    && yum clean all -y \
 #    && rm -rf /var/cache/yum \
-#    && pip install --user mako pexpect
+#    && pip2 install --user mako pexpect
 
 # RUN git clone https://gist.github.com/2190472.git /opt/ssh
 
 RUN if [ "$EURECOM_PROXY" == true ]; then git config --global http.proxy http://:@proxy.eurecom.fr:8080; fi
 
 # build packages not present in RHEL/EPEL repos
-# using gcc 7.3.1, because libfolly doesn't build with RHEL7's gcc 4.8.5
 COPY patches patches/
 COPY scripts scripts/
-RUN scl enable devtoolset-7 scripts/build_missing_packages
+RUN scripts/build_missing_packages
